@@ -11,6 +11,11 @@ ENV/
 env.bak/
 venv.bak/
 
+# C#
+
+obj/
+bin/
+
 # IDE
 
 .idea/

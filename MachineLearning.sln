@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Neural", "Neural\Neural.csproj", "{F385BC28-A5FF-4750-839D-0FA363F56335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumberGuesser", "NumberGuesser\NumberGuesser.csproj", "{6A555752-C374-4139-98AB-85727F0BE369}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F385BC28-A5FF-4750-839D-0FA363F56335} = {F385BC28-A5FF-4750-839D-0FA363F56335}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F385BC28-A5FF-4750-839D-0FA363F56335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F385BC28-A5FF-4750-839D-0FA363F56335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F385BC28-A5FF-4750-839D-0FA363F56335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F385BC28-A5FF-4750-839D-0FA363F56335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A555752-C374-4139-98AB-85727F0BE369}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A555752-C374-4139-98AB-85727F0BE369}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A555752-C374-4139-98AB-85727F0BE369}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A555752-C374-4139-98AB-85727F0BE369}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
