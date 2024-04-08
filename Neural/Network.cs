@@ -2,17 +2,23 @@
 
 // TODO CREATE A TRAINER CLASS
 public class Network {
-    private readonly List<Layer> _layers;
+    private readonly Layer[] _layers;
 
     public Network(int inputSize, int outputSize, params int[] hiddenLayer) {
-        _layers = new List<Layer> { new(inputSize, 0) };
+        var builder = new Neural.Builder.LayerBuilder();
+        var layers = new List<Layer> {
+            builder.Build(inputSize, 0)
+        };
 
-        foreach (var layerSize in hiddenLayer) _layers.Add(new Layer(layerSize, _layers.Last().NodeCount()));
+        foreach (var layer in hiddenLayer)
+            layers.Add(builder.Build(layer, layers.Last().NodeCount));
 
-        _layers.Add(new Layer(outputSize, _layers.Last().NodeCount()));
+        layers.Add(builder.Build(outputSize, layers.Last().NodeCount));
+
+        _layers = layers.ToArray();
     }
 
-    public float[] Output => _layers.Last().Activation();
+    public float[] Output => _layers.Last().Activation;
 
     public static float LearningRate => 0.2f;
 
@@ -23,7 +29,7 @@ public class Network {
     // TODO SHOULD RECEIVE INPUT IF IT'S PUBLIC
     // TODO RETURNING ARRAY MIGHT BE DUMB ?
     public float[] ForwardPass() {
-        return _layers.Aggregate(Array.Empty<float>(), (a, layer) => layer.Activate(a)).ToArray();
+        return _layers.Aggregate(Array.Empty<float>(), (a, layer) => layer.ForwardPass(a)).ToArray();
     }
 
     // TODO SHOULD PROBABLY BE A METHOD OF NODE
@@ -37,12 +43,12 @@ public class Network {
             Cost(expected)
         };
 
-        for (var i = _layers.Count - 2; i >= 1; i--) {
+        for (var i = _layers.Length - 2; i >= 1; i--) {
             // Error contributed to the next layer in the network
             var contributedError = deltas.Last().Sum(err => err * LearningRate);
 
             // Deltas of this layer
-            var layerDelta = _layers[i].Activation().Select(a => contributedError * _activationRate(a)).ToArray();
+            var layerDelta = _layers[i].Activation.Select(a => contributedError * _activationRate(a)).ToArray();
             deltas.Add(layerDelta);
         }
 
@@ -51,8 +57,8 @@ public class Network {
     }
 
     private void _updateParams(float[][] deltaLayers) {
-        for (var i = 1; i < _layers.Count; i++)
-            _layers[i].UpdateParams(LearningRate, deltaLayers[i - 1], _layers[i - 1].Activation());
+        for (var i = 1; i < _layers.Length; i++)
+            _layers[i].UpdateParams(LearningRate, deltaLayers[i - 1], _layers[i - 1].Activation);
     }
 
     public void Train(float[] input, float[] expectedOutput) {

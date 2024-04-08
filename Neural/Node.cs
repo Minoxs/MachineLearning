@@ -15,7 +15,7 @@ public struct Node {
         _weights = weights.ToArray();
     }
 
-    public float Activate(float[] activation) {
+    public float ForwardPass(float[] activation) {
         // INPUT NODE RECEIVES NO ACTIVATION
         // RETURN VALUE DIRECTLY
         // TODO THIS WOULD PROBABLY LOOK BETTER IN A CLASS BASED SYSTEM
