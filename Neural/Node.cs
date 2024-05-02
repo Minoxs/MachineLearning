@@ -16,11 +16,6 @@ public struct Node {
     }
 
     public float ForwardPass(float[] activation) {
-        // INPUT NODE RECEIVES NO ACTIVATION
-        // RETURN VALUE DIRECTLY
-        // TODO THIS WOULD PROBABLY LOOK BETTER IN A CLASS BASED SYSTEM
-        if (activation.Length == 0) return _value;
-
         var z = 0.0f;
         for (var i = 0; i < activation.Length; i++) z += activation[i] * _weights[i];
 

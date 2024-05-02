@@ -1,11 +1,16 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using Neural;
 
 Console.WriteLine("Hello, World!");
 
-var network = new Neural.Network(2, 1, 3, 2);
-foreach (var f in network.ForwardPass()) Console.WriteLine(f);
+var network = new Network(2, 1, 32, 64, 64);
+foreach (var f in network.ForwardPass([0.32f, 0.42f])) Console.WriteLine(f);
 
-network.Train(
-    new[] { 0.32f, 0.42f },
-    new[] { 1.0f }
-);
+for (int i = 0; i < 1000; i++) {
+    network.Train(
+        new[] { 0.32f, 0.42f },
+        new[] { 1.3f }
+    );
+}
+
+foreach (var f in network.ForwardPass([0, 0])) Console.WriteLine(f);
+Console.WriteLine(network.Output[0]);
